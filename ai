@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rockalpha AI</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            #312e81,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            #0369a1,
+            transparent 35%
+        ),
+        #020617;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+.app{
+    width:95%;
+    max-width:950px;
+    height:92vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:rgba(15,23,42,.78);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.65);
+}
+
+
+/* HEADER */
+
+header{
+
+    height:82px;
+
+    padding:0 25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.logo{
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #06b6d4
+        );
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 30px
+        rgba(99,102,241,.5);
+}
+
+.brand h1{
+
+    font-size:20px;
+
+    letter-spacing:2px;
+}
+
+.brand p{
+
+    margin-top:3px;
+
+    color:#94a3b8;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+}
+
+.online{
+
+    color:#00ff99;
+
+    font-size:12px;
+}
+
+.dot{
+
+    display:inline-block;
+
+    width:8px;
+    height:8px;
+
+    margin-right:6px;
+
+    border-radius:50%;
+
+    background:#00ff99;
+
+    box-shadow:
+        0 0 12px #00ff99;
+}
+
+
+/* CHAT */
+
+.chat{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:30px;
+}
+
+.chat::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.chat::-webkit-scrollbar-thumb{
+
+    background:
+        rgba(255,255,255,.15);
+
+    border-radius:10px;
+}
+
+
+/* WELCOME */
+
+.welcome{
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+.big-logo{
+
+    width:95px;
+    height:95px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #06b6d4
+        );
+
+    font-size:28px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 60px
+        rgba(99,102,241,.5);
+
+    margin-bottom:25px;
+
+    animation:float 3s ease-in-out infinite;
+}
+
+.welcome h2{
+
+    font-size:30px;
+
+    margin-bottom:10px;
+}
+
+.welcome p{
+
+    color:#94a3b8;
+
+    font-size:15px;
+}
+
+.suggestions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.suggestions button{
+
+    padding:11px 15px;
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:#cbd5e1;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.suggestions button:hover{
+
+    background:
+        rgba(99,102,241,.2);
+
+    transform:translateY(-2px);
+}
+
+
+/* MESSAGE */
+
+.message{
+
+    display:flex;
+
+    gap:11px;
+
+    margin-bottom:20px;
+
+    animation:appear .3s ease;
+}
+
+.message.user{
+
+    justify-content:flex-end;
+}
+
+.avatar{
+
+    width:37px;
+    height:37px;
+
+    min-width:37px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #06b6d4
+        );
+
+    font-size:10px;
+
+    font-weight:900;
+}
+
+.user .avatar{
+
+    order:2;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #4f46e5
+        );
+}
+
+.bubble{
+
+    max-width:75%;
+
+    padding:14px 17px;
+
+    border-radius:18px;
+
+    line-height:1.6;
+
+    font-size:15px;
+
+    white-space:pre-wrap;
+}
+
+.ai .bubble{
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-top-left-radius:5px;
+}
+
+.user .bubble{
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #2563eb
+        );
+
+    border-top-right-radius:5px;
+}
+
+
+/* TYPING */
+
+.typing{
+
+    display:none;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+        0 30px 12px;
+
+    color:#94a3b8;
+
+    font-size:13px;
+}
+
+.loader{
+
+    display:flex;
+
+    gap:4px;
+}
+
+.loader span{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#818cf8;
+
+    animation:bounce 1s infinite;
+}
+
+.loader span:nth-child(2){
+
+    animation-delay:.15s;
+}
+
+.loader span:nth-child(3){
+
+    animation-delay:.3s;
+}
+
+
+/* INPUT */
+
+.input-area{
+
+    padding:
+        15px 25px 20px;
+
+    background:
+        rgba(2,6,23,.75);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.input-box{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    padding:7px 8px 7px 16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-radius:19px;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+textarea{
+
+    flex:1;
+
+    resize:none;
+
+    outline:none;
+
+    border:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:15px;
+
+    padding:11px 0;
+
+    max-height:120px;
+}
+
+textarea::placeholder{
+
+    color:#64748b;
+}
+
+button{
+
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.voice-btn,
+.send-btn{
+
+    width:44px;
+    height:44px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+
+    transition:.2s;
+}
+
+.voice-btn{
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.send-btn{
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #2563eb
+        );
+}
+
+.voice-btn:hover,
+.send-btn:hover{
+
+    transform:scale(1.05);
+}
+
+.voice-btn.listening{
+
+    background:#dc2626;
+
+    box-shadow:
+        0 0 25px
+        rgba(220,38,38,.6);
+}
+
+button:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+.status{
+
+    text-align:center;
+
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:10px;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes appear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes bounce{
+
+    0%,60%,100%{
+
+        transform:
+            translateY(0);
+    }
+
+    30%{
+
+        transform:
+            translateY(-5px);
+    }
+}
+
+@keyframes float{
+
+    0%,100%{
+
+        transform:
+            translateY(0);
+    }
+
+    50%{
+
+        transform:
+            translateY(-8px);
+    }
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    body{
+
+        padding:0;
+    }
+
+    .app{
+
+        width:100%;
+
+        height:100vh;
+
+        border-radius:0;
+    }
+
+    header{
+
+        padding:
+            0 16px;
+    }
+
+    .chat{
+
+        padding:18px;
+    }
+
+    .welcome h2{
+
+        font-size:24px;
+    }
+
+    .bubble{
+
+        max-width:85%;
+    }
+
+    .input-area{
+
+        padding:
+            10px 12px 15px;
+    }
+
+    .suggestions{
+
+        flex-direction:column;
+    }
+
+    .suggestions button{
+
+        width:100%;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo">
+            RA
+        </div>
+
+        <div>
+
+            <h1>
+                ROCKALPHA
+            </h1>
+
+            <p>
+                 • VOICE • AI
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="online">
+
+        <span class="dot"></span>
+
+        ONLINE
+
+    </div>
+
+</header>
+
+
+<main
+    class="chat"
+    id="chat"
+>
+
+
+<div
+    class="welcome"
+    id="welcome"
+>
+
+    <div class="big-logo">
+        RA
+    </div>
+
+    <h2>
+        Welcome to Rockalpha
+    </h2>
+
+    <p>
+        Your AI assistant.
+    </p>
+
+
+    <div class="suggestions">
+
+        <button
+            onclick="quickAsk('Tell me something interesting')"
+        >
+            💡 Interesting fact
+        </button>
+
+
+        <button
+            onclick="quickAsk('Give me a cool coding idea')"
+        >
+            💻 Coding idea
+        </button>
+
+
+        <button
+            onclick="quickAsk('Tell me a funny joke')"
+        >
+            😂 Tell me a joke
+        </button>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<div
+    class="typing"
+    id="typing"
+>
+
+    <div class="loader">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    Rockalpha is thinking...
+
+</div>
+
+
+<footer
+    class="input-area"
+>
+
+    <div class="input-box">
+
+
+        <button
+            class="voice-btn"
+            id="voiceBtn"
+            title="Voice input"
+        >
+            🎤
+        </button>
+
+
+        <textarea
+            id="input"
+            rows="1"
+            placeholder="Message Rockalpha..."
+        ></textarea>
+
+
+        <button
+            class="send-btn"
+            id="sendBtn"
+            title="Send message"
+        >
+            ➤
+        </button>
+
+
+    </div>
+
+
+    <div
+        class="status"
+        id="status"
+    >
+        Tap 🎤 to speak
+    </div>
+
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+
+/*
+==================================================
+              ROCKALPHA AI
+==================================================
+
+GEMINI 3.6 FLASH
+INTERACTIONS API
+VOICE INPUT
+VOICE OUTPUT
+
+==================================================
+              API KEY
+==================================================
+
+PUT YOUR GEMINI API KEY BETWEEN THE QUOTES.
+
+DO NOT SEND YOUR KEY TO ME.
+
+==================================================
+*/
+
+
+const Chatgpt_Api_key =
+"xjiSPMdwBciJIZ7aQYAvKzhz6slDyVyy";
+
+
+/*
+Current Gemini model
+*/
+
+const MODEL =
+"gemini-3.6-flash";
+
+
+/*
+==================================================
+ELEMENTS
+==================================================
+*/
+
+const chat =
+document.getElementById("chat");
+
+const input =
+document.getElementById("input");
+
+const sendBtn =
+document.getElementById("sendBtn");
+
+const voiceBtn =
+document.getElementById("voiceBtn");
+
+const typing =
+document.getElementById("typing");
+
+const status =
+document.getElementById("status");
+
+const welcome =
+document.getElementById("welcome");
+
+
+/*
+==================================================
+CONVERSATION STATE
+==================================================
+*/
+
+let previousInteractionId = null;
+
+
+/*
+==================================================
+ADD MESSAGE
+==================================================
+*/
+
+function addMessage(text,type){
+
+    const oldWelcome =
+        document.getElementById("welcome");
+
+    if(oldWelcome){
+
+        oldWelcome.remove();
+
+    }
+
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "avatar";
+
+    avatar.textContent =
+        type === "ai"
+            ? "RA"
+            : "YOU";
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble";
+
+    bubble.textContent =
+        text;
+
+
+    message.appendChild(avatar);
+
+    message.appendChild(bubble);
+
+    chat.appendChild(message);
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+/*
+==================================================
+QUICK QUESTIONS
+==================================================
+*/
+
+function quickAsk(question){
+
+    input.value =
+        question;
+
+    sendMessage();
+
+}
+
+
+/*
+==================================================
+SEND MESSAGE TO GEMINI
+==================================================
+*/
+
+async function sendMessage(){
+
+    const text =
+        input.value.trim();
+
+
+    if(!text){
+
+        return;
+
+    }
+
+
+    if(
+        GEMINI_API_KEY ===
+        "PASTE_YOUR_GEMINI_API_KEY_HERE"
+    ){
+
+        alert(
+            "Please add your Gemini API key near the top of the HTML."
+        );
+
+        return;
+
+    }
+
+
+    addMessage(
+        text,
+        "user"
+    );
+
+
+    input.value =
+        "";
+
+    input.style.height =
+        "auto";
+
+
+    typing.style.display =
+        "flex";
+
+
+    sendBtn.disabled =
+        true;
+
+    voiceBtn.disabled =
+        true;
+
+
+    status.textContent =
+        "Connecting to Gemini...";
+
+
+    try{
+
+
+        /*
+        ------------------------------------------
+        GEMINI INTERACTIONS API
+        ------------------------------------------
+        */
+
+        const requestBody = {
+
+            model:
+                MODEL,
+
+            input:
+                text
+
+        };
+
+
+        /*
+        Continue the same conversation
+        */
+
+        if(previousInteractionId){
+
+            requestBody.previous_interaction_id =
+                previousInteractionId;
+
+        }
+
+
+        const response =
+            await fetch(
+
+                "https://generativelanguage.googleapis.com/v1beta/interactions",
+
+                {
+
+                    method:
+                        "POST",
+
+                    headers:{
+
+                        "Content-Type":
+                            "application/json",
+
+                        "x-goog-api-key":
+                            GEMINI_API_KEY
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            requestBody
+                        )
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        /*
+        ------------------------------------------
+        ERROR HANDLING
+        ------------------------------------------
+        */
+
+        if(!response.ok){
+
+            throw new Error(
+
+                data.error?.message ||
+
+                "Gemini API request failed."
+
+            );
+
+        }
+
+
+        /*
+        ------------------------------------------
+        SAVE CONVERSATION ID
+        ------------------------------------------
+        */
+
+        if(data.id){
+
+            previousInteractionId =
+                data.id;
+
+        }
+
+
+        /*
+        ------------------------------------------
+        GET RESPONSE TEXT
+        ------------------------------------------
+        */
+
+        let reply =
+            "";
+
+
+        /*
+        New Interactions API response:
+        steps -> model_output -> content
+        */
+
+        if(
+            Array.isArray(data.steps)
+        ){
+
+            for(
+                const step
+                of data.steps
+            ){
+
+                if(
+                    step.type ===
+                    "model_output"
+                ){
+
+                    if(
+                        Array.isArray(
+                            step.content
+                        )
+                    ){
+
+                        for(
+                            const item
+                            of step.content
+                        ){
+
+                            if(
+                                item.type ===
+                                "text"
+                            ){
+
+                                reply +=
+                                    item.text ||
+                                    "";
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        /*
+        Fallback
+        */
+
+        if(!reply){
+
+            reply =
+                data.output_text ||
+                "";
+
+        }
+
+
+        if(!reply){
+
+            reply =
+                "Rockalpha received an empty response from Gemini.";
+
+        }
+
+
+        /*
+        ------------------------------------------
+        SHOW RESPONSE
+        ------------------------------------------
+        */
+
+        addMessage(
+            reply,
+            "ai"
+        );
+
+
+        /*
+        ------------------------------------------
+        VOICE OUTPUT
+        ------------------------------------------
+        */
+
+        speak(
+            reply
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Rockalpha error:",
+            error
+        );
+
+
+        addMessage(
+
+            "⚠️ Rockalpha Error:\n" +
+            error.message,
+
+            "ai"
+
+        );
+
+
+        status.textContent =
+            "Connection error";
+
+    }
+
+
+    finally{
+
+        typing.style.display =
+            "none";
+
+
+        sendBtn.disabled =
+            false;
+
+        voiceBtn.disabled =
+            false;
+
+
+        input.focus();
+
+    }
+
+}
+
+
+/*
+==================================================
+VOICE OUTPUT
+==================================================
+*/
+
+function speak(text){
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        status.textContent =
+            "Voice output isn't supported.";
+
+        return;
+
+    }
+
+
+    speechSynthesis.cancel();
+
+
+    const cleanText =
+        text
+        .replace(
+            /[*#`_]/g,
+            ""
+        )
+        .trim();
+
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            cleanText
+        );
+
+
+    speech.rate =
+        1;
+
+    speech.pitch =
+        1;
+
+    speech.volume =
+        1;
+
+
+    const voices =
+        speechSynthesis.getVoices();
+
+
+    /*
+    Prefer English / Indian English
+    */
+
+    const voice =
+        voices.find(
+            v =>
+                v.lang ===
+                "en-IN"
+        )
+        ||
+        voices.find(
+            v =>
+                v.lang.startsWith(
+                    "en"
+                )
+        );
+
+
+    if(voice){
+
+        speech.voice =
+            voice;
+
+    }
+
+
+    speech.onstart =
+        function(){
+
+            status.textContent =
+                "🔊 Rockalpha is speaking...";
+
+        };
+
+
+    speech.onend =
+        function(){
+
+            status.textContent =
+                "Tap 🎤 to speak";
+
+        };
+
+
+    speech.onerror =
+        function(){
+
+            status.textContent =
+                "Voice output stopped";
+
+        };
+
+
+    speechSynthesis.speak(
+        speech
+    );
+
+}
+
+
+/*
+==================================================
+VOICE INPUT
+==================================================
+*/
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+let recognition =
+    null;
+
+let listening =
+    false;
+
+
+if(SpeechRecognition){
+
+    recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        "en-IN";
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.onstart =
+        function(){
+
+            listening =
+                true;
+
+
+            voiceBtn.classList.add(
+                "listening"
+            );
+
+
+            voiceBtn.textContent =
+                "⏹";
+
+
+            status.textContent =
+                "🎙️ Listening...";
+
+        };
+
+
+    recognition.onresult =
+        function(event){
+
+            const transcript =
+                event
+                .results[0][0]
+                .transcript;
+
+
+            input.value =
+                transcript;
+
+
+            status.textContent =
+                "Message ready";
+
+
+            /*
+            Automatically send
+            */
+
+            setTimeout(
+                function(){
+
+                    sendMessage();
+
+                },
+                300
+            );
+
+        };
+
+
+    recognition.onerror =
+        function(event){
+
+            console.error(
+                "Voice recognition:",
+                event.error
+            );
+
+
+            status.textContent =
+                "Voice error — try again";
+
+        };
+
+
+    recognition.onend =
+        function(){
+
+            listening =
+                false;
+
+
+            voiceBtn.classList.remove(
+                "listening"
+            );
+
+
+            voiceBtn.textContent =
+                "🎤";
+
+        };
+
+}
+else{
+
+    voiceBtn.disabled =
+        true;
+
+
+    status.textContent =
+        "Voice input isn't supported in this browser.";
+
+}
+
+
+/*
+==================================================
+MICROPHONE BUTTON
+==================================================
+*/
+
+voiceBtn.addEventListener(
+    "click",
+    function(){
+
+        if(!recognition){
+
+            alert(
+                "Your browser doesn't support voice recognition. Try Chrome or Edge."
+            );
+
+            return;
+
+        }
+
+
+        if(listening){
+
+            recognition.stop();
+
+        }
+        else{
+
+            /*
+            Stop Rockalpha speaking
+            */
+
+            if(
+                "speechSynthesis"
+                in window
+            ){
+
+                speechSynthesis.cancel();
+
+            }
+
+
+            try{
+
+                recognition.start();
+
+            }
+            catch(error){
+
+                console.log(error);
+
+            }
+
+        }
+
+    }
+);
+
+
+/*
+==================================================
+SEND BUTTON
+==================================================
+*/
+
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/*
+==================================================
+ENTER TO SEND
+SHIFT + ENTER = NEW LINE
+==================================================
+*/
+
+input.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+                "Enter"
+            &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/*
+==================================================
+AUTO RESIZE
+==================================================
+*/
+
+input.addEventListener(
+    "input",
+    function(){
+
+        this.style.height =
+            "auto";
+
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                120
+            ) + "px";
+
+    }
+);
+
+
+/*
+==================================================
+LOAD AVAILABLE VOICES
+==================================================
+*/
+
+if(
+    "speechSynthesis"
+    in window
+){
+
+    speechSynthesis.onvoiceschanged =
+        function(){
+
+            speechSynthesis.getVoices();
+
+        };
+
+}
+
+</script>
+
+</body>
+</html>
